@@ -5,6 +5,7 @@ import numpy as np
 from collections import defaultdict
 import scipy.stats as stats
 from PIL import Image
+import cv2
 
 
 def cartoonize(image):
@@ -13,24 +14,25 @@ def cartoonize(image):
 
     image: input PIL image
     """
-    hist = image.histogram()
+    output = np.array(image)
+    x, y, c = output.shape
+
+    output = np.array(image)
     hists = []
-    hists.append(np.array(hist[0:256]))
-    hists.append(np.array(hist[256:256*2]))
-    hists.append(np.array(hist[256*2:]))
+    for i in xrange(c):
+        output[:, :, i] = cv2.bilateralFilter(output[:, :, i], 5, 50, 100)
+        hist, _ = np.histogram(output[:, :, i], bins=np.arange(256+1))
+        hists.append(hist)
 
     C = []
     for h in hists:
         C.append(k_histogram(h))
-    print(C)
-    output = np.array(image, dtype=np.int)
-    x, y, c = output.shape
 
     output = output.reshape((-1, c))
-    for k in xrange(c):
-        channel = output[:, k]
-        index = np.argmin(np.abs(channel[:, np.newaxis] - C[k]), axis=1)
-        output[:, k] = C[k][index]
+    for i in xrange(c):
+        channel = output[:, i]
+        index = np.argmin(np.abs(channel[:, np.newaxis] - C[i]), axis=1)
+        output[:, i] = C[i][index]
     output = output.reshape((x, y, c))
     cartoonized = Image.fromarray(output.astype(np.int8), mode='RGB')
     return cartoonized
