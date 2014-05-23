@@ -36,6 +36,27 @@ def cartoonize(image):
     return cartoonized
 
 
+def update_C(C, hist):
+    """
+    update centroids until they don't change
+    """
+    while True:
+        groups = defaultdict(list)
+        #assign pixel values
+        for i in range(len(hist)):
+            d = np.abs(C-i)
+            index = np.argmin(d)
+            groups[index].append(i)
+
+        new_C = np.array(C)
+        for i, indice in groups.items():
+            new_C[i] = int(np.sum(indice*hist[indice])/np.sum(hist[indice]))
+        if np.sum(new_C-C) == 0:
+            break
+        C = new_C
+    return C, groups
+
+
 def k_histogram(hist):
     """
     choose the best K for k-means and get the centroids
@@ -45,19 +66,10 @@ def k_histogram(hist):
     C = np.array([128])
 
     while True:
-        groups = defaultdict(list)
-        #assign pixel values
-        for i in range(len(hist)):
-            d = np.abs(C-i)
-            index = np.argmin(d)
-            groups[index].append(i)
+        C, groups = update_C(C, hist)
 
-        #update centroid value
-        for i, indice in groups.items():
-            C[i] = int(np.sum(indice*hist[indice])/np.sum(hist[indice]))
-
-        #increase K if possible
-        new_C = set()  # use set to avoid same value when seperating centroid
+        #start increase K if possible
+        new_C = set()     # use set to avoid same value when seperating centroid
         for i, indice in groups.items():
             #if there are not enough values in the group, do not seperate
             if len(indice) < N:
