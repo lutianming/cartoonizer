@@ -1,0 +1,6 @@
+* cartoonizer
+  make images look like a cartoon image
+
+* dependences
+  + Numpy
+  + Python Image Library(Pillow fork)
