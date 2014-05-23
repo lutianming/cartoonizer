@@ -17,6 +17,6 @@ for f in os.listdir(in_dir):
     print("time: {0}s".format(end_time-start_time))
     name = os.path.basename(f)
     tmp = os.path.splitext(name)
-    name = tmp[0]+"_cartoon." + tmp[1]
+    name = tmp[0]+"_cartoon" + tmp[1]
     name = os.path.join(out_dir, name)
     output.save(name)
