@@ -1,5 +1,5 @@
 * Cartoonizer
-  This tool convert your photo into a cartoon-like image
+  This tool converts your photo into a cartoon-like image
 
 * Dependences
   + NumPy
