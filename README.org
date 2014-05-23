@@ -1,6 +1,11 @@
-* cartoonizer
-  make images look like a cartoon image
+* Cartoonizer
+  This tool convert your photo into a cartoon-like image
 
-* dependences
-  + Numpy
+* Dependences
+  + NumPy
+  + SciPy
   + Python Image Library(Pillow fork)
+
+* How it works
+  This cartoonizer uses K-means algorithm to cluster the histogram of image.
+  The value K is auto selected by the method in this [[http://papers.nips.cc/paper/2526-learning-the-k-in-k-means.pdf][paper]].
