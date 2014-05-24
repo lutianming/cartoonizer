@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from cartoonizer import cartoonize
-from PIL import Image
+import cv2
 import os
 import time
 
@@ -8,7 +8,7 @@ in_dir = './imgs/input'
 out_dir = './imgs/output'
 
 for f in os.listdir(in_dir):
-    image = Image.open(os.path.join(in_dir, f))
+    image = cv2.imread(os.path.join(in_dir, f))
     print('==============')
     print(f)
     start_time = time.time()
@@ -19,4 +19,4 @@ for f in os.listdir(in_dir):
     tmp = os.path.splitext(name)
     name = tmp[0]+"_cartoon" + tmp[1]
     name = os.path.join(out_dir, name)
-    output.save(name)
+    cv2.imwrite(name, output)

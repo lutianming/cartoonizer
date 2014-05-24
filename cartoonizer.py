@@ -3,8 +3,7 @@ import argparse
 import time
 import numpy as np
 from collections import defaultdict
-import scipy.stats as stats
-from PIL import Image
+from scipy import stats
 import cv2
 
 
@@ -112,10 +111,11 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    image = Image.open(args.input)
+    # image = Image.open(args.input)
+    image = cv2.imread(args.input)
     start_time = time.time()
     output = cartoonize(image)
     end_time = time.time()
     t = end_time-start_time
     print('time: {0}s'.format(t))
-    output.save(args.output)
+    cv2.imwrite(args.output, output)
