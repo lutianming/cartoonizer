@@ -4,7 +4,7 @@
 * Dependences
   + NumPy
   + SciPy
-  + Python Image Library(Pillow fork)
+  + OpenCV
 
 * How it works
   This cartoonizer uses K-means algorithm to cluster the histogram of image.
