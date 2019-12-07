@@ -17,7 +17,7 @@ def cartoonize(image):
     output = np.array(image)
     x, y, c = output.shape
     # hists = []
-    for i in xrange(c):
+    for i in range(c):
         output[:, :, i] = cv2.bilateralFilter(output[:, :, i], 5, 50, 50)
         # hist, _ = np.histogram(output[:, :, i], bins=np.arange(256+1))
         # hists.append(hist)
@@ -42,7 +42,7 @@ def cartoonize(image):
     print("centroids: {0}".format(C))
 
     output = output.reshape((-1, c))
-    for i in xrange(c):
+    for i in range(c):
         channel = output[:, i]
         index = np.argmin(np.abs(channel[:, np.newaxis] - C[i]), axis=1)
         output[:, i] = C[i][index]
