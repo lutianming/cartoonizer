@@ -1,4 +1,4 @@
-## Cartoonizer
+## Cartooner
   This tool converts your photo into a cartoon-like image
 
 ## Samples
@@ -7,6 +7,28 @@
 
    ![output](/imgs/output/Street_cartoon.jpg)
 
+## install
+```
+pip install cartooner
+```
+
+## how to use
+
+```python
+
+from cartooner import cartoonize
+import cv2
+import os
+import time
+
+input_file = ... # input image file name
+output_file = ... # output image file name
+image = cv2.imread(input_file)
+output = cartoonize(image)
+
+cv2.imwrite(output_file, output)
+
+```
 ## Dependences
   + numpy
   + scipy

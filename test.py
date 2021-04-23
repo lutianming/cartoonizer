@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from cartoonizer import cartoonize
+from cartooner import cartoonize
 import cv2
 import os
 import time
